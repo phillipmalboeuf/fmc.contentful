@@ -3,17 +3,21 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@amcharts/amcharts5": "^5.1.6",
     "@contentful/app-sdk": "^4.3.5",
     "@contentful/f36-components": "^4.0.33",
     "@contentful/f36-tokens": "^4.0.0",
     "@emotion/css": "^11.7.1",
+    "@handsontable/react": "^11.1.0",
     "contentful-management": "^8.1.3",
+    "handsontable": "^11.1.0",
+    "jspreadsheet": "^8.4.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-scripts": "^5.0.0"
   },
   "scripts": {
-    "start": "cross-env BROWSER=none react-scripts start",
+    "start": "cross-env BROWSER=none HTTPS=true react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
