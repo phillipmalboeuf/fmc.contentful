@@ -105,26 +105,28 @@ const Field = ({ sdk }: FieldProps) => {
       }}
     />
 
-    {['Columns', 'Curve', 'Pie'].includes(t) &&
-    <div style={{
-      position: 'relative',
-      marginTop: 20,
-      width: '100%',
-      paddingBottom: '42%',
-      marginBottom: '-10%',
-    }}>
-      <figure ref={element} style={{
-        position: 'absolute',
-        inset: 0,
-        width: '125%',
+    {['Columns', 'Curve', 'Pie'].includes(t) && <>
+      <div style={{
+        position: 'relative',
+        marginTop: 20,
+        width: '100%',
         paddingBottom: '42%',
-        transformOrigin: 'top left',
-        transform: 'scale(0.75)',
-        margin: 0
-      }} />
-    </div>}
+        marginBottom: '-10%',
+      }}>
+        <figure ref={element} style={{
+          position: 'absolute',
+          inset: 0,
+          width: '125%',
+          paddingBottom: '42%',
+          transformOrigin: 'top left',
+          transform: 'scale(0.75)',
+          margin: 0
+        }} />
+      </div>
+      {exporting && <Button onClick={() => exporting.download('png')}>Export</Button>}
+    </>}
 
-    {exporting && <Button onClick={() => exporting.download('png')}>Export</Button>}
+    
   </>
 };
 
