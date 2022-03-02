@@ -26,6 +26,7 @@ const Field = ({ sdk }: FieldProps) => {
   const table = useRef<HotTable>()
   const element = useRef<HTMLElement>()
   const [exporting, setExporting] = useState<Exporting>()
+  const [t, setType] = useState<string>()
   let root: Root
 
   const { type, alignment, min, max, axeTitle, stacked } = sdk.entry.fields
@@ -76,6 +77,9 @@ const Field = ({ sdk }: FieldProps) => {
       field.onValueChanged(createChart)
     })
 
+    setType(sdk.entry.fields.type.getValue())
+    sdk.entry.fields.type.onValueChanged(setType)
+
     sdk.field.onValueChanged(createChart)
   }, [sdk.entry.fields, element])
 
@@ -101,7 +105,7 @@ const Field = ({ sdk }: FieldProps) => {
       }}
     />
 
-    {['Columns', 'Curve', 'Pie'].includes(type.getValue()) &&
+    {['Columns', 'Curve', 'Pie'].includes(t) &&
     <div style={{
       position: 'relative',
       marginTop: 20,
