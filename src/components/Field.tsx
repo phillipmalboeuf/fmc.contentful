@@ -15,6 +15,12 @@ import { Exporting } from '@amcharts/amcharts5/plugins/exporting'
 import type { Root } from '@amcharts/amcharts5'
 import { csvToChartData, csvToMatrix, matrixToCSV } from './Sidebar'
 
+export function wait(ms: number) {
+  return new Promise(function(resolve, reject) {
+    setTimeout(resolve, ms);
+  })
+}
+
 registerAllModules()
 
 interface FieldProps {
@@ -73,7 +79,7 @@ const Field = ({ sdk }: FieldProps) => {
   useEffect(() => {
     createChart()
 
-    Object.values(sdk.entry.fields).forEach(field => {
+    Object.values(sdk.entry.fields).filter(field => field.id !== sdk.field.id).forEach(field => {
       field.onValueChanged(createChart)
     })
 
@@ -98,9 +104,9 @@ const Field = ({ sdk }: FieldProps) => {
       licenseKey='non-commercial-and-evaluation'
       afterChange={async () => {
         if (table.current) {
-          console.log(table.current.hotInstance.getData())
           const value = matrixToCSV(table.current.hotInstance.getData())
           sdk.field.setValue(value)
+          await wait(500)
           await sdk.entry.save()
         }
       }}
