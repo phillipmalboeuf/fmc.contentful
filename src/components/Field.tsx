@@ -86,7 +86,7 @@ const Field = ({ sdk }: FieldProps) => {
   return <>
     <HotTable
       ref={table}
-      data={csvToMatrix(sdk.field.getValue())}
+      data={sdk.field.getValue() ? csvToMatrix(sdk.field.getValue()) : [[]]}
       contextMenu={true}
       // dropdownMenu={true}
       // colHeaders={true}
