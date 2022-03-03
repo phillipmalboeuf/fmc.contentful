@@ -86,7 +86,7 @@ const Field = ({ sdk }: FieldProps) => {
   return <>
     <HotTable
       ref={table}
-      data={sdk.field.getValue() ? csvToMatrix(sdk.field.getValue()) : [[]]}
+      data={sdk.field.getValue() ? csvToMatrix(sdk.field.getValue()) : [['Category'], ['']]}
       contextMenu={true}
       // dropdownMenu={true}
       // colHeaders={true}
@@ -98,6 +98,7 @@ const Field = ({ sdk }: FieldProps) => {
       licenseKey='non-commercial-and-evaluation'
       afterChange={async () => {
         if (table.current) {
+          console.log(table.current.hotInstance.getData())
           const value = matrixToCSV(table.current.hotInstance.getData())
           sdk.field.setValue(value)
           await sdk.entry.save()
