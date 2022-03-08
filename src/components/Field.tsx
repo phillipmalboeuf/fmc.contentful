@@ -39,7 +39,7 @@ const Field = ({ sdk }: FieldProps) => {
 
   function createChart() {
     if (root) {
-      root.dispose()
+      root = undefined
     }
 
     if (element.current) {
