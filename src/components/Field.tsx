@@ -39,7 +39,7 @@ const Field = ({ sdk }: FieldProps) => {
 
   function createChart() {
     if (root) {
-      root = undefined
+      root.dispose()
     }
 
     if (element.current) {
@@ -47,17 +47,17 @@ const Field = ({ sdk }: FieldProps) => {
 
     switch (type.getValue()) {
       case 'Columns':
-        root = createColumns(element.current, dataSource, alignment.getValue() !== 'Horizontal', stacked.getValue(), min.getValue(), max.getValue(), axeTitle.getValue(), '#2BFFF5', '#044554', undefined)
+        root = createColumns(element.current, dataSource, alignment.getValue() !== 'Horizontal', stacked.getValue(), min.getValue(), max.getValue(), axeTitle.getValue(sdk.field.locale), '#2BFFF5', '#044554', undefined)
         // chart.appear(1000, 100)
         break
 
       case 'Curve':
-        root = createCurve(element.current, dataSource, alignment.getValue() !== 'Horizontal', stacked.getValue(), min.getValue(), max.getValue(), axeTitle.getValue(), '#2BFFF5', '#044554', undefined)
+        root = createCurve(element.current, dataSource, alignment.getValue() !== 'Horizontal', stacked.getValue(), min.getValue(), max.getValue(), axeTitle.getValue(sdk.field.locale), '#2BFFF5', '#044554', undefined)
         // chart.appear(1000, 100)
         break
 
       case 'Pie':
-        root = createTarte(element.current, dataSource, alignment.getValue() !== 'Horizontal', stacked.getValue(), min.getValue(), max.getValue(), axeTitle.getValue(), '#2BFFF5', '#044554', undefined)
+        root = createTarte(element.current, dataSource, alignment.getValue() !== 'Horizontal', stacked.getValue(), min.getValue(), max.getValue(), axeTitle.getValue(sdk.field.locale), '#2BFFF5', '#044554', undefined)
         // chart.appear(1000, 100)
         break
     
