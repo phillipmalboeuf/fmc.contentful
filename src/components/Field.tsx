@@ -31,9 +31,8 @@ interface FieldProps {
 const Field = ({ sdk }: FieldProps) => {
   const table = useRef<HotTable>()
   const element = useRef<HTMLElement>()
-  // const [exporting, setExporting] = useState<Exporting>()
+  const [root, setRoot] = useState<Root>()
   const [t, setType] = useState<string>()
-  let root: Root
 
   const { type, alignment, min, max, axeTitle, stacked } = sdk.entry.fields
 
@@ -47,17 +46,17 @@ const Field = ({ sdk }: FieldProps) => {
 
     switch (type.getValue()) {
       case 'Columns':
-        root = createColumns(element.current, dataSource, alignment.getValue() !== 'Horizontal', stacked.getValue(), min.getValue(), max.getValue(), axeTitle.getValue(sdk.field.locale), '#2BFFF5', '#044554', undefined)
+        setRoot(createColumns(element.current, dataSource, alignment.getValue() !== 'Horizontal', stacked.getValue(), min.getValue(), max.getValue(), axeTitle.getValue(sdk.field.locale), '#2BFFF5', '#044554', undefined))
         // chart.appear(1000, 100)
         break
 
       case 'Curve':
-        root = createCurve(element.current, dataSource, alignment.getValue() !== 'Horizontal', stacked.getValue(), min.getValue(), max.getValue(), axeTitle.getValue(sdk.field.locale), '#2BFFF5', '#044554', undefined)
+        setRoot(createCurve(element.current, dataSource, alignment.getValue() !== 'Horizontal', stacked.getValue(), min.getValue(), max.getValue(), axeTitle.getValue(sdk.field.locale), '#2BFFF5', '#044554', undefined))
         // chart.appear(1000, 100)
         break
 
       case 'Pie':
-        root = createTarte(element.current, dataSource, alignment.getValue() !== 'Horizontal', stacked.getValue(), min.getValue(), max.getValue(), axeTitle.getValue(sdk.field.locale), '#2BFFF5', '#044554', undefined)
+        setRoot(createTarte(element.current, dataSource, alignment.getValue() !== 'Horizontal', stacked.getValue(), min.getValue(), max.getValue(), axeTitle.getValue(sdk.field.locale), '#2BFFF5', '#044554', undefined))
         // chart.appear(1000, 100)
         break
     
@@ -124,7 +123,7 @@ const Field = ({ sdk }: FieldProps) => {
           margin: 0
         }} />
       </div>
-      <Button onClick={() => {
+      {root && <Button onClick={() => {
         const dataSource = csvToChartData(sdk.field.getValue())
         const exporting = Exporting.new(root, {
           filePrefix: sdk.entry.fields.id.getValue(),
@@ -137,7 +136,7 @@ const Field = ({ sdk }: FieldProps) => {
           }
         })
         exporting.download('png')
-      }}>Export</Button>
+      }}>Export</Button>}
     </>}
 
     
