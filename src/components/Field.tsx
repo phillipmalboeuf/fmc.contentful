@@ -119,6 +119,7 @@ const Field = ({ sdk }: FieldProps) => {
         width: '100%',
         paddingBottom: '42%',
         marginBottom: '-10%',
+        zIndex: -1
       }}>
         <figure ref={element} style={{
           position: 'absolute',
