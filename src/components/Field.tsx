@@ -68,7 +68,13 @@ const Field = ({ sdk }: FieldProps) => {
     if (root) {
       setExporting(Exporting.new(root, {
         filePrefix: sdk.entry.fields.id.getValue(),
-        dataSource
+        dataSource,
+        pdfOptions: {
+          disabled: true
+        },
+        pdfdataOptions: {
+          disabled: true
+        }
       }))
     }
 
