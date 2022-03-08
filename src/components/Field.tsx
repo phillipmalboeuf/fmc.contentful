@@ -31,7 +31,7 @@ interface FieldProps {
 const Field = ({ sdk }: FieldProps) => {
   const table = useRef<HotTable>()
   const element = useRef<HTMLElement>()
-  const [exporting, setExporting] = useState<Exporting>()
+  // const [exporting, setExporting] = useState<Exporting>()
   const [t, setType] = useState<string>()
   let root: Root
 
@@ -63,19 +63,6 @@ const Field = ({ sdk }: FieldProps) => {
     
       default:
         break
-    }
-
-    if (root) {
-      setExporting(Exporting.new(root, {
-        filePrefix: sdk.entry.fields.id.getValue(),
-        dataSource,
-        pdfOptions: {
-          disabled: true
-        },
-        pdfdataOptions: {
-          disabled: true
-        }
-      }))
     }
 
     sdk.window.updateHeight(element.current.offsetHeight + table.current.hotElementRef.offsetHeight + 100)
@@ -137,7 +124,20 @@ const Field = ({ sdk }: FieldProps) => {
           margin: 0
         }} />
       </div>
-      {exporting && <Button onClick={() => exporting.download('png')}>Export</Button>}
+      <Button onClick={() => {
+        const dataSource = csvToChartData(sdk.field.getValue())
+        const exporting = Exporting.new(root, {
+          filePrefix: sdk.entry.fields.id.getValue(),
+          dataSource,
+          pdfOptions: {
+            disabled: true
+          },
+          pdfdataOptions: {
+            disabled: true
+          }
+        })
+        exporting.download('png')
+      }}>Export</Button>
     </>}
 
     
